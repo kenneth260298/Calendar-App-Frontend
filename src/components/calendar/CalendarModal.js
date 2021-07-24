@@ -5,8 +5,8 @@ import Modal from 'react-modal';
 import DateTimePicker from 'react-datetime-picker';
 import Swal from 'sweetalert2'
 import { useSelector, useDispatch } from 'react-redux';
-import { uiCloseModal, uiOpenModal } from '../../actions/ui';
-import { eventAddNew, eventClearActiveEvent, eventSetActive, eventUpdated } from '../../actions/events';
+import { uiCloseModal } from '../../actions/ui';
+import {  eventClearActiveEvent, eventStartAddNew, eventStartUpdate } from '../../actions/events';
 const customStyles = {
     content: {
         top: '50%',
@@ -95,16 +95,9 @@ export const CalendarModal = () => {
         }
 
         if (activeEvent) {
-            dispatch(eventUpdated(formValues));
+            dispatch(eventStartUpdate(formValues));
         } else {
-            dispatch(eventAddNew({
-                ...formValues,
-                id: new Date().getTime(),
-                user: {
-                    _id: 123,
-                    name: 'Kenneth'
-                }
-            }));
+            dispatch(eventStartAddNew(formValues));
         };
 
         setValidTitle(true);
